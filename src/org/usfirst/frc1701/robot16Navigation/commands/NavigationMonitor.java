@@ -16,12 +16,12 @@ import org.usfirst.frc1701.robot16Navigation.Robot;
 import org.usfirst.frc1701.robot16Navigation.RobotMap;
 
 /**
- *@author Matt Watrous
- *
  *Handles the continuous reading of values
  *from Navigation's hardware. Also, will 
  *control drive train to navigate to a particular
  *location on the field
+ *
+ *@author Matt Watrous
  */
 
 public class NavigationMonitor extends Command {
@@ -43,6 +43,8 @@ public class NavigationMonitor extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	System.out.println("Robot run time: " + Robot.navigation.setTimeCountValues());
+    	Robot.navigation.setNavValues();
+    	System.out.println("Robot heading, acceleration: " + Robot.navigation.getNavValues());
     }
 
     // Make this return true when this Command no longer needs to run execute()

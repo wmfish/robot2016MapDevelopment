@@ -20,14 +20,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 /**
- * @author Matt Watrous
- * 
  * Acts as an individual subsystem to directly
  * handle navigation related hardware.
+ * 
+ * @author Matt Watrous
  */
 
 public class Navigation extends Subsystem {
-	private int robotHeading; //Will store robot heading in degrees, should start at zero (gyro resets in NavMonitors initialize()
+	private double robotHeading; //Will store robot heading in degrees, should start at zero (gyro resets in NavMonitors initialize()
 
 	/*
 	 * These 2 instruments will comprise the first
@@ -52,11 +52,31 @@ public class Navigation extends Subsystem {
     
     private final double timePerSample = .005; //Used to integrate the distance traveled along with runCounter
     private int runCounter = 0; //Counts the current number of executions
+    private double presentAcceleration = 0; //Acceleration in (m/s^2)
     
-    public void setNavValues(int heading){
-    	robotHeading = heading;
+    
+    /*
+     * Begin Methods
+     */ 
+    
+    /**
+     * Continuously sets the value for gyro
+     * heading and acceleration (m/s^2)
+     */
+    public void setNavValues(){
+    	robotHeading = gyro.getAngle();
+    	presentAcceleration = accelerometer.getAcceleration() * 9.81; //May need to verify proper conversion TODO
+    }
+    /**
+     * @return (String) - Present robot heading, Present Acceleration
+     */
+    public String getNavValues(){
+		return Double.toString(robotHeading) + ", " + Double.toString(presentAcceleration);
     }
     
+    /**
+     * @return (double) - Robot's total time active
+     */
     public double setTimeCountValues(){
     	runCounter++;
     	return (double) (runCounter * timePerSample); //Returns total time robot has been active for
