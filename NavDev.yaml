@@ -3,7 +3,33 @@ Version 2.0
 ---
 Children:
 - Children:
-  - Children: []
+  - Children:
+    - Children: []
+      Properties:
+        Sensitivity: !!robotbuilder.data.properties.DoubleProperty {default: 0.007,
+          name: Sensitivity, validators: null, value: 0.007}
+        Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1']
+          default: '0'
+          name: Input Channel (Analog)
+          validators: [AnalogInput]
+          value: '0'
+      Base: AnalogGyro
+      Name: Gyro
+    - Children: []
+      Properties:
+        Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
+          default: '0'
+          name: Input Channel (Analog)
+          validators: [AnalogInput]
+          value: '1'
+        Volts Per G: !!robotbuilder.data.properties.DoubleProperty {default: '0',
+          name: Volts Per G, validators: null, value: 0.0}
+        Zero G Volts: !!robotbuilder.data.properties.DoubleProperty {default: 2.5,
+          name: Zero G Volts, validators: null, value: 2.5}
+      Base: AnalogAccelerometer
+      Name: Accelerometer
     Properties:
       Default command parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
@@ -19,6 +45,22 @@ Children:
         value: []
     Base: Subsystem
     Name: Navigation
+  - Children: []
+    Properties:
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: Drive}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: DriveTrain
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -37,10 +79,10 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id001 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id001
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
@@ -55,14 +97,32 @@ Children:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Navigation}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id002 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id002
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: NavigationMonitor
+  - Children: []
+    Properties:
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: DriveTrain}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id001 []
+        name: Parameter presets
+        validators: null
+        value: *id001
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: Drive
   Properties: {}
   Base: Commands
   Name: Commands
